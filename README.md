@@ -6,7 +6,7 @@ It's features include:
 
 * Tiling and tiling setups that are savable
 * A central search setup like OS X Yosemite's Spotlight
-* Great good looks
+* Flat UI, modern, user-freindly look (Most tiling window mangagers look really ugly.)
 * And Activities, similar to KDE
 
 ### Disclaimer: It is currently in deep, deep development
@@ -14,12 +14,13 @@ It's features include:
 Building and Running
 --------------------
 
-To build this example window manager, you will need:
+To build this window manager, you will need:
 
-* A C++-11 enabled C++ compiler
-* [SCons](http://www.scons.org/)
-* Xlib headers and libraries
-* [google-glog](https://code.google.com/p/google-glog/) library
+* Go (Go package)
+* XGB (Go package)
+* XGB Util (Go package)
+* XDG (Go package)
+* ANSI (Go package)
 
 To run and test it, you will need:
 
@@ -27,27 +28,14 @@ To run and test it, you will need:
 * `xinit`
 * Random X utilities such as `xclock`, `xeyes`, and `xterm` to play with
 
-On [Arch Linux](http://www.archlinux.org), you can install these with:
-
-    yaourt -S base-devel scons xproto google-glog \
-        xorg-server-xephyr xorg-xinit xorg-xclock xorg-xeyes xterm
-
-Consult your own distro's documentation for how to install these.
-
-Once you have all the dependencies, building and running it is as simple as:
-
     ./build_and_run.sh
-
-This will launch a simple Xephyr session like in the following screenshot:
-![Screenshot](basic_wm_screenshot.png)
-
 
 Usage
 -----
 
 Supported keyboard shortcuts:
 
-* **Alt + Left Click**: Move window
-* **Alt + Right Click**: Resize window
+* **Alt + Click**: Resize window
 * **Alt + F4**: Close window
 * **Alt + Tab**: Switch window
+* **Alt + Right Click**: On the home screen, this will open an applications menu
