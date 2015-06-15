@@ -1,0 +1,26 @@
+_cgo_defun.c:89:#pragma cgo_import_static _cgo_e13b1c1ec8d3_Cfunc_XNextEvent
+_cgo_defun.c:90:void _cgo_e13b1c1ec8d3_Cfunc_XNextEvent(void*);
+_cgo_defun.c:93:·_Cfunc_XNextEvent(struct{void *y[3];}p)
+_cgo_defun.c:95:	runtime·cgocall(_cgo_e13b1c1ec8d3_Cfunc_XNextEvent, &p);
+_cgo_gotypes.go:38:type _Ctype_XButtonEvent _Ctype_struct___0
+_cgo_gotypes.go:40:type _Ctype_XEvent [192]byte
+_cgo_gotypes.go:82:	send_event	_Ctype_int
+_cgo_gotypes.go:154:	all_event_masks		_Ctype_long
+_cgo_gotypes.go:156:	your_event_mask		_Ctype_long
+_cgo_gotypes.go:252:type _Ctype_union__XEvent [192]byte
+_cgo_gotypes.go:275:func _Cfunc_XNextEvent(*_Ctype_struct__XDisplay, *_Ctype_XEvent) _Ctype_int
+Binary file _cgo_.o matches
+flywm.cgo1.go:29:							event := _Ctype_XEvent{}
+flywm.cgo1.go:49:								_Cfunc_XNextEvent(display, &event)
+flywm.cgo1.go:53:		if event._type == _Cconst_KeyPress && event.xkey.subwindow != _Cconst_None {
+flywm.cgo1.go:54:			_Cfunc_XRaiseWindow(display, event.xkey.subwindow)
+flywm.cgo1.go:55:		} else if event._type == _Cconst_ButtonPress && event.xbutton.subwindow != _Cconst_None {
+flywm.cgo1.go:59:			_Cfunc_XGetWindowAttributes(display, event.xbutton.subwindow, &attr)
+flywm.cgo1.go:60:									start = event.xbutton
+flywm.cgo1.go:64:		} else if event._type == _Cconst_MotionNotify && start.subwindow != _Cconst_None {
+flywm.cgo1.go:68:			xdiff := event.xbutton.x_root - start.x_root
+flywm.cgo1.go:69:									ydiff := event.xbutton.y_root - start.y_root
+flywm.cgo1.go:123:		} else if event._type == _Cconst_ButtonRelease {
+flywm.cgo2.c:100:_cgo_e13b1c1ec8d3_Cfunc_XNextEvent(void *v)
+flywm.cgo2.c:104:		XEvent* p1;
+flywm.cgo2.c:108:	a->r = XNextEvent((void*)a->p0, (void*)a->p1);

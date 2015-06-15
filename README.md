@@ -21,6 +21,8 @@ To build this window manager, you will need:
 * XGB Util (Go package)
 * XDG (Go package)
 * ANSI (Go package)
+* graphics-go
+* freetype-go
 
 To run and test it, you will need:
 
