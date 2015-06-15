@@ -1,0 +1,12 @@
+[root]
+name = "fly_wm"
+version = "0.1.0"
+dependencies = [
+ "xlib 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "xlib"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+

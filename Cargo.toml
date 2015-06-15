@@ -1,0 +1,10 @@
+[package]
+name = "fly_wm"
+version = "0.1.0"
+authors = ["Christopher Dumas <christopherdumas@gmail.com>"]
+
+[dependencies]
+xlib = "0.1.0"
+
+[[bin]]
+name = "flywm"
