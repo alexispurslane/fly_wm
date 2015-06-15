@@ -1,0 +1,6 @@
+#!/bin/sh
+xsetroot -solid "#aa1111"
+xrdb -load $HOME/.Xdefaults
+gnome-terminal
+gnome-terminal
+exec /home/christopherdumas/fly_wm/flywm
