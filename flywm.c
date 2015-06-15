@@ -6,7 +6,10 @@
 #include <X11/Xlib.h>
 
 #define nil 0x0
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+int max(int a, int b) {
+  return a > b ? a : b;
+}
 
 int main () {
   Display *display = XOpenDisplay(nil);
@@ -16,8 +19,10 @@ int main () {
   XButtonEvent start;
   XEvent event;
 
-  XGrabKey(display, XKeysymToKeyCode(display, XStringToKeysym("Tab")), Mod1Mask,
-      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync);
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Enter")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Raise focused window
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Tab")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Focus and raise next window
   XGrabButton(display, 1, Mod1Mask, DefaultRootWindow(display), True,
       ButtonPressMask|ButtonReleaseMask|PointerMotionMask, GrabModeAsync,
       GrabModeAsync, None, None);
@@ -48,10 +53,12 @@ int main () {
       XMoveResizeWindow(display, start.subwindow,
           attr.x + x_move,
           attr.y + y_move,
-          MAX(1, attr.width + x_resize),
-          MAX(1, attr.height + y_resize));
+          max(1, attr.width + x_resize),
+          max(1, attr.height + y_resize));
     } else if (event.type == ButtonRelease) {
       start.subwindow = None;
     }
   }
+
+  return 0;
 }
