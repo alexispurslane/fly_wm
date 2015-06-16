@@ -1,6 +1,5 @@
 #!/bin/sh
-xsetroot -solid "#aa1111"
+feh --bg-scale $HOME/fly_wm/1822046.jpg
 xrdb -load $HOME/.Xdefaults
-gnome-terminal
-gnome-terminal
-exec /home/christopherdumas/fly_wm/flywm
+$HOME/fly_wm/apps/taskmaster
+exec $HOME/fly_wm/flywm

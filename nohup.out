@@ -1,0 +1,72 @@
+
+(process:1282): GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
+console.error: gnotifier: 
+  Message: Error: cannot read contents of null pointer
+  Stack:
+    checkServerInfo@resource://gre/modules/commonjs/toolkit/loader.js -> resource://jid1-oonoa6xbjznvlq-at-jetpack/gnotifier/lib/linux.js:58:16
+linux.checkAvailable@resource://gre/modules/commonjs/toolkit/loader.js -> resource://jid1-oonoa6xbjznvlq-at-jetpack/gnotifier/lib/linux.js:100:42
+exports.main@resource://gre/modules/commonjs/toolkit/loader.js -> resource://jid1-oonoa6xbjznvlq-at-jetpack/gnotifier/lib/main.js:310:6
+run@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/addon/runner.js:151:1
+startup/</<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/addon/runner.js:86:7
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:867:23
+this.PromiseWalker.walkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:746:7
+this.PromiseWalker.scheduleWalkerLoop/<@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:688:37
+
+console.error: gnotifier: 
+  Message: Error: cannot read contents of null pointer
+  Stack:
+    checkServerInfo@resource://gre/modules/commonjs/toolkit/loader.js -> resource://jid1-oonoa6xbjznvlq-at-jetpack/gnotifier/lib/linux.js:58:16
+linux.checkAvailable@resource://gre/modules/commonjs/toolkit/loader.js -> resource://jid1-oonoa6xbjznvlq-at-jetpack/gnotifier/lib/linux.js:100:42
+exports.main@resource://gre/modules/commonjs/toolkit/loader.js -> resource://jid1-oonoa6xbjznvlq-at-jetpack/gnotifier/lib/main.js:310:6
+run@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/addon/runner.js:151:1
+startup/</<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/addon/runner.js:86:7
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:867:23
+this.PromiseWalker.walkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:746:7
+this.PromiseWalker.scheduleWalkerLoop/<@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:688:37
+
+1434474054536	addons.update-checker	WARN	Update manifest for ubufox@ubuntu.com did not contain an updates property
+1434474054575	addons.update-checker	WARN	Update manifest for {972ce4c6-7e08-4474-a285-3208198ce6fd} did not contain an updates property
+SystemMessageCache: init
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+SystemMessageCache: init
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+SystemMessageCache: initWARNING: content window passed to PrivateBrowsingUtils.isWindowPrivate. Use isContentWindowPrivate instead (but only for frame scripts).
+pbu_isWindowPrivate@resource://gre/modules/PrivateBrowsingUtils.jsm:25:14
+nsBrowserAccess.prototype.openURI@chrome://browser/content/browser.js:15192:21
+WARNING: content window passed to PrivateBrowsingUtils.isWindowPrivate. Use isContentWindowPrivate instead (but only for frame scripts).
+pbu_isWindowPrivate@resource://gre/modules/PrivateBrowsingUtils.jsm:25:14
+nsBrowserAccess.prototype.openURI@chrome://browser/content/browser.js:15192:21
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+(firefox:1282): libnotify-WARNING **: Failed to connect to proxy

@@ -4,8 +4,10 @@
  */
 
 #include <X11/Xlib.h>
+#include <assert.h>
 
 #define nil 0x0
+#define ever (;;)
 
 int max(int a, int b) {
   return a > b ? a : b;
@@ -13,16 +15,15 @@ int max(int a, int b) {
 
 int main () {
   Display *display = XOpenDisplay(nil);
-  if (!display) return 1;
+  assert(display);
 
   XWindowAttributes attr;
   XButtonEvent start;
   XEvent event;
 
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Enter")), Mod1Mask,
-      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Raise focused window
   XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Tab")), Mod1Mask,
-      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Focus and raise next window
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Raise focused window
+
   XGrabButton(display, 1, Mod1Mask, DefaultRootWindow(display), True,
       ButtonPressMask|ButtonReleaseMask|PointerMotionMask, GrabModeAsync,
       GrabModeAsync, None, None);
@@ -32,7 +33,7 @@ int main () {
 
   start.subwindow = None;
 
-  while (1) {
+  for ever {
     XNextEvent(display, &event);
 
     if (event.type == KeyPress && event.xkey.subwindow != None) {

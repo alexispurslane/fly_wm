@@ -1,0 +1,13 @@
+
+(nautilus:5591): Gtk-WARNING **: Failed to register client: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.gnome.SessionManager was not provided by any .service files
+Nautilus-Share-Message: Called "net usershare info" but it failed: 'net usershare' returned error 255: net usershare: cannot open usershare directory /var/lib/samba/usershares. Error No such file or directory
+Please ask your system administrator to enable user sharing.
+
+
+(evince:5607): Gtk-CRITICAL **: gtk_widget_show: assertion 'GTK_IS_WIDGET (widget)' failed
+
+(evince:5607): Gtk-CRITICAL **: gtk_widget_show: assertion 'GTK_IS_WIDGET (widget)' failed
+
+(evince:5619): Gtk-CRITICAL **: gtk_widget_show: assertion 'GTK_IS_WIDGET (widget)' failed
+
+(evince:5619): Gtk-CRITICAL **: gtk_widget_show: assertion 'GTK_IS_WIDGET (widget)' failed
