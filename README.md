@@ -15,3 +15,4 @@ All of these modules exept the window manager are located in the `apps/` directo
 3. Xorg
 4. GCC
 5. Bash
+6. libxt-dev or libxt or libxt-devel (depending on your OS. Also known as XT Intrinsics)

@@ -23,6 +23,28 @@ int main () {
 
   XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Tab")), Mod1Mask,
       DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Raise focused window
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("q")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Kill focused window
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("l")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Window take up half of the screen on the left
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("r")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Window take up half of the screen on the right
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("t")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Window take up half of the screen on the top
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("b")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Window take up half of the screen on the bottom
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("f")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Window take up whole screen
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("1")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Divide window in half vertically left
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("2")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Divide window in half vertically right
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("3")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Divide window in half horizontally top
+  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("4")), Mod1Mask,
+      DefaultRootWindow(display), True, GrabModeAsync, GrabModeAsync); // Divide window in half horizontally bottom
+
+
 
   XGrabButton(display, 1, Mod1Mask, DefaultRootWindow(display), True,
       ButtonPressMask|ButtonReleaseMask|PointerMotionMask, GrabModeAsync,
@@ -37,8 +59,156 @@ int main () {
     XNextEvent(display, &event);
 
     if (event.type == KeyPress && event.xkey.subwindow != None) {
-      XRaiseWindow(display, event.xkey.subwindow);
-    } else if (event.type == ButtonPress && event.xbutton.subwindow != None) {
+      if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("Tab"))) {
+        XRaiseWindow(display, event.xkey.subwindow);
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("l"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, DefaultRootWindow(display), &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          x, // X
+          y, // Y
+          width/2, // Width
+          height); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("r"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, DefaultRootWindow(display), &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          width - width/2, // X
+          y, // Y
+          width/2, // Width
+          height); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("t"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, DefaultRootWindow(display), &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          x, // X
+          y, // Y
+          width, // Width
+          height/2); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("b"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, DefaultRootWindow(display), &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          x, // X
+          height - height/2, // Y
+          width, // Width
+          height/2); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("f"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, DefaultRootWindow(display), &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          x, // X
+          y, // Y
+          width, // Width
+          height); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("1"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, event.xkey.subwindow, &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          x, // X
+          y, // Y
+          width/2, // Width
+          height); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("2"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, event.xkey.subwindow, &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          x+(width/2), // X
+          y, // Y
+          width/2, // Width
+          height); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("3"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, event.xkey.subwindow, &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          x, // X
+          y, // Y
+          width, // Width
+          height/2); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("4"))) {
+        Window root_return;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+
+        XGetGeometry(display, event.xkey.subwindow, &root_return, &x, &y, &width,
+                      &height, &border_width, &depth);
+        XMoveResizeWindow(display, event.xkey.subwindow,
+          x, // X
+          y+(height/2), // Y
+          width, // Width
+          height/2); // Height
+      } else if (event.xkey.keycode == XKeysymToKeycode(display, XStringToKeysym("q"))) {
+        XDestroyWindow(display, event.xkey.subwindow);
+      }
+    }else if (event.type == ButtonPress && event.xbutton.subwindow != None) {
       XGetWindowAttributes(display, event.xbutton.subwindow, &attr);
       start = event.xbutton;
     } else if (event.type == MotionNotify && start.subwindow != None) {

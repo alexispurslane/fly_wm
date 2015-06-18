@@ -1,5 +1,6 @@
 #!/bin/sh
-feh --bg-scale $HOME/fly_wm/1822046.jpg
-xrdb -load $HOME/.Xdefaults
-$HOME/fly_wm/apps/taskmaster
-exec $HOME/fly_wm/flywm
+feh --bg-scale $HOME/fly_wm/background.jpg
+gnome-terminal
+gnome-terminal
+firefox
+exec $HOME/fly_wm/flywm > $HOME/fly_wm/flywm.log

@@ -13,8 +13,20 @@
 #define ever (;;)
 
 int main () {
-  char *applications[] = {"firefox", "xterm", "chromium-browser", "gnome-terminal"};
-  int applist_size = 4;
+  char applications[80][80];
+  int applist_size;
+  char line[80];
+  FILE *fr;
+
+  fr = fopen ("./.taskmaster.conf", "rt");
+
+  while (fgets(line, 80, fr) != NULL) {
+    memcpy(applications[applist_size+1], line, sizeof(line));
+    applist_size++;
+  }
+  fclose(fr);
+  fprintf(stderr, "%d", applist_size);
+
   int seli = 0;
 
   Display *display = XOpenDisplay(nil);
@@ -24,7 +36,7 @@ int main () {
   int black_color = BlackPixel(display, DefaultScreen(display));
   int white_color = WhitePixel(display, DefaultScreen(display));
   Window w = XCreateSimpleWindow(display, DefaultRootWindow(display), 0, 0,
-      150, 300, 2, black_color, white_color);
+      150, 150, 2, black_color, white_color);
   XMapWindow(display, w);
 
   GC gc = XCreateGC(display, w, 0, nil);
@@ -37,17 +49,26 @@ int main () {
 
   // Arrow keys and enter:
   XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Up")), 0, w, True, GrabModeAsync,
-             GrabModeAsync); // Up
+      GrabModeAsync); // Up
   XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Down")), 0, w, True, GrabModeAsync,
-             GrabModeAsync); // Down
+      GrabModeAsync); // Down
   XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Return")), 0, w, True, GrabModeAsync,
-             GrabModeAsync); // Enter
+      GrabModeAsync); // Enter
   for ever {
     XClearWindow(display, w);
     int i = 0;
-    for (i; i < applist_size; i++) {
+    for (i = 0; i < applist_size; i++) {
       if (i == seli) {
-        XFillRectangle(display, w, gc, 0, 15*i, 300, 19);
+        Window root;
+        int x,
+            y,
+            width,
+            height,
+            border_width,
+            depth;
+        XGetGeometry(display, w, &root, &x, &y, &width,
+            &height, &border_width, &depth);
+        XFillRectangle(display, w, gc, 0, 15*i, width, 19);
         XSetForeground(display, gc, white_color);
         XDrawString(display, w, gc, (150/8), 15*(i+1), applications[i], strlen(applications[i]));
         XSetForeground(display, gc, black_color);
