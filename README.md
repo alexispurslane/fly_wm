@@ -1,43 +1,18 @@
-Fly WM
-====================
-
-This is a simple tiling window manager, that aims to be as good-looking and useful as any floating window manager.
-It's features include:
-
-* Tiling and tiling setups that are savable
-* A central search setup like OS X Yosemite's Spotlight
-* Flat UI, modern, user-freindly look (Most tiling window mangagers look really ugly.)
-* And Activities, similar to KDE
-
-### Disclaimer: It is currently in deep, deep development
-
-Building and Running
---------------------
-
-To build this window manager, you will need:
-
-* Go (Go package)
-* XGB (Go package)
-* XGB Util (Go package)
-* XDG (Go package)
-* ANSI (Go package)
-* graphics-go
-* freetype-go
-
-To run and test it, you will need:
-
-* [Xephyr](http://www.freedesktop.org/wiki/Software/Xephyr/)
-* `xinit`
-* Random X utilities such as `xclock`, `xeyes`, and `xterm` to play with
-
-    ./build_and_run.sh
-
-Usage
------
-
-Supported keyboard shortcuts:
-
-* **Alt + Click**: Resize window
-* **Alt + F4**: Close window
-* **Alt + Tab**: Switch window
-* **Alt + Right Click**: On the home screen, this will open an applications menu
+# Fly WM
+A exteremely hackable, simple, and modulor window manager and tools, written in C using Xlib. It follows the UNIX phillosophy of:
+> Do one thing and do it well
+Fly WM is made of several modules:
+* Window manager (based on TinyWM)
+* Task Master (Sort of like a panel in XFCE)
+* Task Manager (Like a window list bar)
+* Mason (A tiling window manager module, assures that all windows are tiled or marked as floating. Lets Fly WM act like a tiling window manager)
+* Settings Manager
+* Exterior Decorator (A module that adds window decorations to Fly WM)
+All of these modules exept the window manager are located in the `apps/` directory.
+## Dependancies
+1. feh
+2. Xlib
+3. Xorg
+4. GCC
+5. Bash
+6. libxt-dev or libxt or libxt-devel (depending on your OS. Also known as XT Intrinsics)
