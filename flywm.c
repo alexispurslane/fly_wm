@@ -270,8 +270,8 @@ void move_resize_window(Window frame, XWindowAttributes attr,
       target_width,
       target_height);
   XMoveResizeWindow(display, w,
-      attr.x,
-      attr.y,
+      0,
+      0,
       target_width,
       target_height);
 }
