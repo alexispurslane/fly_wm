@@ -1,5 +1,5 @@
 set -e
-gcc flywm.c -o flywm -lX11
+gcc flywm.c lib/hashmap.c -o flywm -lX11
 gcc apps/taskmaster.c -o apps/taskmaster -lX11
 XEPHYR=$(whereis -b Xephyr | cut -f2 -d' ')
 xinit ./flywm-session -- \

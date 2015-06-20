@@ -2,4 +2,4 @@
 feh --bg-scale $HOME/fly_wm/background.jpg
 gnome-terminal
 gnome-terminal
-exec $HOME/fly_wm/flywm > $HOME/fly_wm/flywm.log
+exec $HOME/fly_wm/flywm
