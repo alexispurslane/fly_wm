@@ -37,31 +37,29 @@ int main() {
   XButtonEvent start;
   XEvent event;
 
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("Tab")),Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("q")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("l")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("r")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("t")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("b")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("f")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("1")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("2")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("3")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
-  XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym("4")), Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
 
+  char *keys[11] = {
+    "Tab", // Raise window
+    "q",   // Quit window
+    "l",   // Window takes up left half of screen
+    "r",   // Window takes up rigt half of screen
+    "t",   // Window takes up top half of screen
+    "b",   // Window takes up bottom half of screen
+    "f",   // Full screen window
+    "1",   // Use window's vertical left half
+    "2",   // Use window's vertical right half
+    "3",   // Use window's horizontal top half
+    "4"    // Use window's horizontal bottom half
+  };
 
+  // Set up key listeners
+  int key = 0;
+  for (key = 0; key < 11; key++) {
+    XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym(keys[key])),Mod1Mask,
+      root, True, GrabModeAsync, GrabModeAsync);
+  }
 
+  // Set up mouse listeners
   XGrabButton(display, 1, Mod1Mask, root, True,
       ButtonPressMask|ButtonReleaseMask|PointerMotionMask, GrabModeAsync,
       GrabModeAsync, None, None);
@@ -69,6 +67,7 @@ int main() {
       ButtonPressMask|ButtonReleaseMask|PointerMotionMask, GrabModeAsync,
       GrabModeAsync, None, None);
 
+  // Get the top level windows, and check to make sure everything is as we assume it to be
   Window returned_root, returned_parent;
   Window* top_level_windows;
   int num_top_level_windows;
@@ -82,6 +81,7 @@ int main() {
         &num_top_level_windows));
   assert(returned_root == root);
 
+  // Add frames to the top level windows
   int i;
   for (i = 0; i < num_top_level_windows; i++) {
     add_frame(top_level_windows[i]);
@@ -91,6 +91,7 @@ int main() {
 
   start.subwindow = None;
 
+  // Event loop
   for ever {
     XNextEvent(display, &event);
 
@@ -192,21 +193,23 @@ int main() {
         XDestroyWindow(display, event.xkey.subwindow);
       }
     }else if (event.type == ButtonPress && event.xbutton.subwindow != None) {
+      // If the user starts doing something with the mouse, get the window's attributes
       assert(XGetWindowAttributes(display, event.xbutton.subwindow, &attr));
       start = event.xbutton;
     } else if (event.type == MotionNotify && start.subwindow != None) {
-      int x_delta = event.xbutton.x_root - start.x_root;
+      // When the user starts dragging...
+      int x_delta = event.xbutton.x_root - start.x_root; // Get the deltas (x and y)
       int y_delta = event.xbutton.y_root - start.y_root;
 
-      int x_move = start.button == 1 ? x_delta : 0;
+      int x_move = start.button == 1 ? x_delta : 0; // If we are left clicking, we are moving the window
       int y_move = start.button == 1 ? y_delta : 0;
 
-      int x_resize = start.button == 3 ? x_delta : 0;
+      int x_resize = start.button == 3 ? x_delta : 0; // If it is a right click, we are resizing the window
       int y_resize = start.button == 3 ? y_delta : 0;
 
       move_resize_window(start.subwindow, attr,
           attr.x + x_move, attr.y + y_move,
-          max(1, attr.width + x_resize),
+          max(1, attr.width + x_resize), // Cant make a negative or zero width window
           max(1, attr.height + y_resize));
     } else if (event.type == ButtonRelease) {
       start.subwindow = None;
@@ -216,10 +219,16 @@ int main() {
   return 0;
 }
 
+/* Max of two numbers. Whichever is biggest will be returned */
 int max(int a, int b) {
   return a > b ? a : b;
 }
 
+/* This function frames a window.
+ * Pass in the window, and it will be reparented to a window with a background and border set on it.
+ * We will also store the index of the reparented window in it's array on the frame, so when the frame receives an event, we can find the origonal window,
+ * and pass the event along.
+ */
 void add_frame(Window w) {
   const int BORDER_WIDTH = 1;
   const long BORDER_COLOR = 0x6666ff;
@@ -254,6 +263,9 @@ void add_frame(Window w) {
   XMapWindow(display, frame);
 }
 
+/* This function moves and resizes the frame window, and it's content window, at the same time.
+ * It accesses the content window's index from the frame window, and uses it to get it from the array.
+ */
 void move_resize_window(Window frame, XWindowAttributes attr,
     int target_x,
     int target_y,
