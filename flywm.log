@@ -1,10 +1,1 @@
-Creating [Window 0]
-Creating [Window 1]
-Creating [Window 2]
-Creating [Window 3]
-Creating [Window 4]
-Creating [Window 5]
-Creating [Window 6]
-Creating [Window 7]
-Dragging/Resizeing [Window 7]
-Resizing [Subwindow 0]
+gcc: error: lib/hashmap.c: No such file or directory
