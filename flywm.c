@@ -150,7 +150,7 @@ int main() {
             XStringToKeysym("1"))) {
 
         XWindowAttributes attrs;
-        assert(XGetWindowAttributes(display, event.xkey.subwindow, &attr));
+        assert(XGetWindowAttributes(display, event.xkey.subwindow, &attrs));
         move_resize_window(event.xkey.subwindow, attr,
             attrs.x, // X
             attrs.y, // Y
@@ -160,7 +160,7 @@ int main() {
             XStringToKeysym("2"))) {
 
         XWindowAttributes attrs;
-        assert(XGetWindowAttributes(display, event.xkey.subwindow, &attr));
+        assert(XGetWindowAttributes(display, event.xkey.subwindow, &attrs));
         move_resize_window(event.xkey.subwindow, attr,
             attrs.x+(attrs.width/2), // X
             attrs.y, // Y
@@ -170,7 +170,7 @@ int main() {
             XStringToKeysym("3"))) {
 
         XWindowAttributes attrs;
-        assert(XGetWindowAttributes(display, event.xkey.subwindow, &attr));
+        assert(XGetWindowAttributes(display, event.xkey.subwindow, &attrs));
         move_resize_window(event.xkey.subwindow, attr,
             attrs.x, // X
             attrs.y, // Y
@@ -180,7 +180,7 @@ int main() {
             XStringToKeysym("4"))) {
 
         XWindowAttributes attrs;
-        assert(XGetWindowAttributes(display, event.xkey.subwindow, &attr));
+        assert(XGetWindowAttributes(display, event.xkey.subwindow, &attrs));
         move_resize_window(event.xkey.subwindow, attr,
             attrs.x, // X
             attrs.y+(attrs.height/2), // Y
@@ -244,12 +244,12 @@ void add_frame(Window w) {
       w,
       frame,
       0, 0);
-  
+
   n++;
   windows[n] = w;
-  char name[3];
-  sprintf(&name, "%d", n);
-  XStoreName(display, frame, &name);
+  char name[4];
+  sprintf(name, "%d", n);
+  XStoreName(display, frame, name);
 
   XMapWindow(display, frame);
 }
