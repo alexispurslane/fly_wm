@@ -8,6 +8,7 @@
 
 #include <X11/Xlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include <math.h>
 
@@ -56,7 +57,7 @@ int main() {
   int key = 0;
   for (key = 0; key < 11; key++) {
     XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym(keys[key])),Mod1Mask,
-      root, True, GrabModeAsync, GrabModeAsync);
+        root, True, GrabModeAsync, GrabModeAsync);
   }
 
   // Set up mouse listeners
@@ -273,17 +274,23 @@ void move_resize_window(Window frame, XWindowAttributes attr,
     int target_height) {
 
   char *name;
+  Window w;
   XFetchName(display, frame, &name);
-  Window w = windows[atoi(name)];
+  if (name) { // If window accepted reparent
+    w = windows[atoi(name)];
+  }
 
   XMoveResizeWindow(display, frame,
       target_x,
       target_y,
       target_width,
       target_height);
-  XMoveResizeWindow(display, w,
-      0,
-      0,
-      target_width,
-      target_height);
+
+  if (w) { // If window accepted reparent
+    XMoveResizeWindow(display, w,
+        0,
+        0,
+        target_width,
+        target_height);
+  }
 }
