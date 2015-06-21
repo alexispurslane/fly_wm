@@ -1,0 +1,5 @@
+#!/bin/sh
+feh --bg-scale $HOME/fly_wm/c_code/background.jpg
+gnome-terminal
+gnome-terminal
+exec $HOME/fly_wm/c_code/flywm

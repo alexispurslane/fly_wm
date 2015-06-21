@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Fly WM
+Comment=A simple and beutiful window manager
+Exec=/home/christopherdumas/fly_wm/c_code/flywm-session
+Terminal=False
+TryExec=/home/christopherdumas/fly_wm/c_code/flywm
+Type=Application
+
+
+[Window Manager]
+SessionManaged=True

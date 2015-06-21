@@ -22,13 +22,16 @@ All of these modules exept the window manager are located in the `apps/` directo
 
 ## Docs
 The commands are as follows:
-* <kbd>Alt</kbd> + <kbd>l</kbd>: Focused window takes up left half of the screen
-* <kbd>Alt</kbd> + <kbd>r</kbd>: Focused window takes up right half of the screen
-* <kbd>Alt</kbd> + <kbd>t</kbd>: Focused window takes up top half of the screen
-* <kbd>Alt</kbd> + <kbd>b</kbd>: Focused window takes up bottom half of the screen
-* <kbd>Alt</kbd> + <kbd>1</kbd>: Focused window becomes the left half of itself
-* <kbd>Alt</kbd> + <kbd>2</kbd>: Focused window becomes the right half of itself
-* <kbd>Alt</kbd> + <kbd>3</kbd>: Focused window becomes the top half of itself
-* <kbd>Alt</kbd> + <kbd>4</kbd>: Focused window becomes the bottom half of itself
+* <kbd>Alt</kbd> + <kbd>Tab</kbd>: Raise window
+* <kbd>Alt</kbd> + <kbd>q</kbd>: Quit window
+* <kbd>Alt</kbd> + <kbd>l</kbd>: Window takes up left half of screen
+* <kbd>Alt</kbd> + <kbd>r</kbd>: Window takes up rigt half of screen
+* <kbd>Alt</kbd> + <kbd>t</kbd>: Window takes up top half of screen
+* <kbd>Alt</kbd> + <kbd>b</kbd>: Window takes up bottom half of scre
+* <kbd>Alt</kbd> + <kbd>f</kbd>: Full screen window
+* <kbd>Alt</kbd> + <kbd>1</kbd>: Use window's vertical left half
+* <kbd>Alt</kbd> + <kbd>2</kbd>: Use window's vertical right half
+* <kbd>Alt</kbd> + <kbd>3</kbd>: Use window's horizontal top half
+* <kbd>Alt</kbd> + <kbd>4</kbd>: Use window's horizontal bottom half
 * <kbd>Alt</kbd> + <kbd>Click</kbd>: Move clicked window
 * <kbd>Alt</kbd> + <kbd>Right-Click</kbd>: Resize clicked window
