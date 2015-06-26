@@ -15,3 +15,17 @@ All of these modules exept the window manager are located in the `apps/` directo
 5. Bash
 6. XCompmgr
 7. xterm
+## Key Bindings
+* <kbd>Alt</kbd> + <kbd>q</kbd>: Quit window
+* <kbd>Alt</kbd> + <kbd>l</kbd>: Window takes up left half of screen
+* <kbd>Alt</kbd> + <kbd>r</kbd>: Window takes up rigt half of screen
+* <kbd>Alt</kbd> + <kbd>t</kbd>: Window takes up top half of screen
+* <kbd>Alt</kbd> + <kbd>b</kbd>: Window takes up bottom half of screen
+* <kbd>Alt</kbd> + <kbd>f</kbd>: Full screen window
+* <kbd>Alt</kbd> + <kbd>1</kbd>: Use window's vertical left half
+* <kbd>Alt</kbd> + <kbd>2</kbd>: Use window's vertical right half
+* <kbd>Alt</kbd> + <kbd>3</kbd>: Use window's horizontal top half
+* <kbd>Alt</kbd> + <kbd>4</kbd>: Use window's horizontal bottom half
+* Alt + Right Drag: Resize window
+* Alt + Left Drag: Move window
+* Shift + Left Click: Raise Window
