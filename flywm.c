@@ -38,8 +38,7 @@ int main() {
   XEvent event;
 
 
-  char *keys[11] = {
-    "Tab", // Raise window
+  char *keys[10] = {
     "q",   // Quit window
     "l",   // Window takes up left half of screen
     "r",   // Window takes up rigt half of screen
@@ -54,7 +53,7 @@ int main() {
 
   // Set up key listeners
   int key = 0;
-  for (key = 0; key < 11; key++) {
+  for (key = 0; key < 10; key++) {
     XGrabKey(display, XKeysymToKeycode(display, XStringToKeysym(keys[key])),Mod1Mask,
       root, True, GrabModeAsync, GrabModeAsync);
   }
@@ -65,6 +64,9 @@ int main() {
       GrabModeAsync, None, None);
   XGrabButton(display, 3, Mod1Mask, root, True,
       ButtonPressMask|ButtonReleaseMask|PointerMotionMask, GrabModeAsync,
+      GrabModeAsync, None, None);
+  XGrabButton(display, 1, ShiftMask, root, True,
+      ButtonPressMask, GrabModeAsync,
       GrabModeAsync, None, None);
 
   // Get the top level windows, and check to make sure everything is as we assume it to be
@@ -84,7 +86,8 @@ int main() {
   // Add frames to the top level windows
   int i;
   for (i = 0; i < num_top_level_windows; i++) {
-    add_frame(top_level_windows[i]);
+    n++;
+    windows[n] = top_level_windows[i];
   }
 
   XFree(top_level_windows);
@@ -104,10 +107,6 @@ int main() {
           root_height = x_window_attrs.height;
 
       if (event.xkey.keycode == XKeysymToKeycode(display,
-            XStringToKeysym("Tab"))) {
-
-        XRaiseWindow(display, event.xkey.subwindow);
-      } else if (event.xkey.keycode == XKeysymToKeycode(display,
             XStringToKeysym("l"))) {
 
         move_resize_window(event.xkey.subwindow, attr,
@@ -192,7 +191,9 @@ int main() {
 
         XDestroyWindow(display, event.xkey.subwindow);
       }
-    }else if (event.type == ButtonPress && event.xbutton.subwindow != None) {
+    } else if (event.type == ButtonPress && event.xbutton.state == ShiftMask && event.xbutton.subwindow != None) {
+      XRaiseWindow(display, event.xbutton.subwindow);
+    } else if (event.type == ButtonPress && event.xbutton.subwindow != None) {
       // If the user starts doing something with the mouse, get the window's attributes
       assert(XGetWindowAttributes(display, event.xbutton.subwindow, &attr));
       start = event.xbutton;
@@ -224,44 +225,6 @@ int max(int a, int b) {
   return a > b ? a : b;
 }
 
-/* This function frames a window.
- * Pass in the window, and it will be reparented to a window with a background and border set on it.
- * We will also store the index of the reparented window in it's array on the frame, so when the frame receives an event, we can find the origonal window,
- * and pass the event along.
- */
-void add_frame(Window w) {
-  const int BORDER_WIDTH = 1;
-  const long BORDER_COLOR = 0x6666ff;
-  const long BG_COLOR = 0x8888ff;
-
-  XWindowAttributes x_window_attrs;
-  assert(XGetWindowAttributes(display, w, &x_window_attrs));
-
-  Window frame = XCreateSimpleWindow(
-      display,
-      root,
-      x_window_attrs.x,
-      x_window_attrs.y,
-      x_window_attrs.width,
-      x_window_attrs.height,
-      BORDER_WIDTH,
-      BORDER_COLOR,
-      BG_COLOR);
-  XAddToSaveSet(display, w);
-  XReparentWindow(
-      display,
-      w,
-      frame,
-      0, 0);
-
-  n++;
-  windows[n] = w;
-  char name[4];
-  sprintf(name, "%d", n);
-  XStoreName(display, frame, name);
-
-  XMapWindow(display, frame);
-}
 
 /* This function moves and resizes the frame window, and it's content window, at the same time.
  * It accesses the content window's index from the frame window, and uses it to get it from the array.
@@ -272,18 +235,9 @@ void move_resize_window(Window frame, XWindowAttributes attr,
     int target_width,
     int target_height) {
 
-  char *name;
-  XFetchName(display, frame, &name);
-  Window w = windows[atoi(name)];
-
   XMoveResizeWindow(display, frame,
       target_x,
       target_y,
-      target_width,
-      target_height);
-  XMoveResizeWindow(display, w,
-      0,
-      0,
       target_width,
       target_height);
 }

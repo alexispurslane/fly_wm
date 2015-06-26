@@ -1,6 +1,6 @@
 #!/bin/sh
 feh --bg-scale $HOME/fly_wm/background.jpg
-xcompmgr -cCfF &
+xcompmgr -cCfF -r 15 &
 xterm
 xterm
 exec $HOME/fly_wm/flywm
