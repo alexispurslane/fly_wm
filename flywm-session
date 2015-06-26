@@ -1,6 +1,8 @@
 #!/bin/sh
 feh --bg-scale $HOME/fly_wm/background.jpg
 xcompmgr -cCfF -r 15 &
-xterm
-xterm
+xterm &
+xterm &
+sleep 1
+./apps/taskmanager &
 exec $HOME/fly_wm/flywm

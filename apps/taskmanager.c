@@ -16,12 +16,21 @@
 
 #define nil 0x0
 #define ever (;;)
+
+typedef struct _Button {
+  Window window;
+  char *name;
+  int x, y, width, height;
+  GC gc;
+} Button;
+
 Window windows[100];
 int hidden[100];
+Button buttons[100];
 
-void add_button(Display *d, Window w, char *name,
+int add_button(Display *d, Window w, char *name,
     int x, int y, int width, int height, int i);
-void update_window(Display *d, Window w);
+void update_button(Display *d, Button w);
 int main() {
   Display *d = XOpenDisplay(nil);
 
@@ -50,22 +59,23 @@ int main() {
       &win_list,
       &win_list_len);
   int i, n = 0, place = 0;
-  char *name, *pname;
   for (i = 0; i < win_list_len; i++) {
     XWindowAttributes attrs;
     XGetWindowAttributes(d, win_list[i], &attrs);
 
     if (attrs.map_state == IsViewable|IsUnmapped) {
-      XClassHint wchint;
-      XGetClassHint(d, win_list[i], &wchint);
-      pname = name;
-      name = wchint.res_name;
+      XTextProperty name;
+      int s = XGetWMName(d, win_list[i], &name);
 
-      add_button(d, window, name, place, 0, 100, 25, n);
-      place += 100;
 
       n++;
       windows[n] = win_list[i];
+
+      if (s != 0) {
+        place += add_button(d, window, name.value, place, 0, 170, 25, n);
+      } else {
+        //place += add_button(d, window, "Unknown", place, 0, 170, 25, n);
+      }
     }
   }
 
@@ -83,21 +93,19 @@ int main() {
       Window selected_window = windows[atoi(strI)];
 
       if (selected_window != None) {
-        XClassHint wchint;
-        XGetClassHint(d, selected_window, &wchint);
-        char *name = wchint.res_name;
-
         if (hidden[atoi(strI)]) {
           XMapWindow(d, selected_window);
           XRaiseWindow(d, selected_window);
           hidden[atoi(strI)] = False;
           XSetWindowBackground(d, event.xbutton.subwindow, 0x222222);
-          update_window(d, event.xbutton.subwindow);
+          XSetForeground(d, buttons[atoi(strI)].gc, 0x666666);
+          update_button(d, buttons[atoi(strI)]);
         } else {
           XUnmapWindow(d, selected_window);
           hidden[atoi(strI)] = True;
           XSetWindowBackground(d, event.xbutton.subwindow, 0x666666);
-          update_window(d, event.xbutton.subwindow);
+          XSetForeground(d, buttons[atoi(strI)].gc, 0x222222);
+          update_button(d, buttons[atoi(strI)]);
         }
       }
     }
@@ -106,7 +114,7 @@ int main() {
   return 0;
 }
 
-void add_button(Display *d, Window w, char *name,
+int add_button(Display *d, Window w, char *name,
     int x, int y, int width, int height, int i) {
   Window button = XCreateSimpleWindow(d, w, x, y,
       width, height, 2, 0x666666, 0x222222);
@@ -119,11 +127,25 @@ void add_button(Display *d, Window w, char *name,
   XStoreName(d, button, (char *)strI);
 
   XMapWindow(d, button);
-  XDrawString(d, button, gc, width/2 - strlen(name)*2, height/2, name, strlen(name));
+  XDrawString(d, button, gc, 5, (height/2)+5, name, strlen(name));
   XFlush(d);
+
+  Button b;
+  b.window = button;
+  b.x = x;
+  b.y = y;
+  b.width = width;
+  b.height = height;
+  b.name = name;
+  b.gc = gc;
+
+  buttons[i] = b;
+
+  return width;
 }
 
-void update_window(Display *d, Window w) {
-  XUnmapWindow(d, w);
-  XMapWindow(d, w);
+void update_button(Display *d, Button b) {
+  XUnmapWindow(d, b.window);
+  XMapWindow(d, b.window);
+  XDrawString(d, b.window, b.gc, 5, (b.height/2)+5, b.name, strlen(b.name));
 }
