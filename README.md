@@ -1,6 +1,7 @@
 # Fly WM
 A exteremely hackable, simple, and modulor window manager and tools, written in C using Xlib. It follows the UNIX phillosophy of:
-> Do one thing and do it well
+> Do one thing and do it well.
+
 Fly WM is made of several modules:
 * Window manager (based on TinyWM)
 * Task Manager (Like a window list)
